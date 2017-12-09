@@ -1,0 +1,15 @@
+---
+  - name: prepare all you need
+    user:
+      name={{ ansible_user_id }}
+      generate_ssh_key=yes
+      ssh_key_file=.ssh/id_rsa
+
+  - name: ensure key exists at DigitalOcean
+    digital_ocean:
+      state=present
+      command=ssh
+      name={{ do_ssh_key }}
+      ssh_pub_key={{ lookup('file', '~/.ssh/id_rsa.pub') }}
+      api_token={{ api_token }}
+    register: ssh_key

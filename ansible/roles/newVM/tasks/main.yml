@@ -1,0 +1,44 @@
+---
+  - name: create droplet
+    digital_ocean:
+        state=present
+        command=droplet
+        name={{ VMname }}
+        api_token={{ api_token }}
+        size_id={{memory}}
+        unique_name=yes
+        region_id={{ region_id }}
+        private_networking={{ private_networking }}
+        image_id={{ image_id }}
+        ssh_key_ids={{ ssh_key.ssh_key.id }}
+        wait_timeout=500
+    register: my_droplet
+
+  - file: 
+      state=touch
+      path=host_vars/{{ my_droplet.droplet.name }}.yml
+
+  - lineinfile:
+      dest=host_vars/{{ my_droplet.droplet.name }}.yml
+      line={{ item }} 
+    with_items:
+      - "ansible_host: {{ my_droplet.droplet.ip_address }}"  
+      - "droplet_id: {{ my_droplet.droplet.id }}"
+      - "droplet_name: {{ my_droplet.droplet.name }}"
+
+  - lineinfile:
+      dest=hosts
+      line={{ item }}
+    with_items:
+      - "{{ my_droplet.droplet.name }} ansible_ssh_host={{ my_droplet.droplet.ip_address }}"
+
+  - name: waiting for server
+    wait_for:
+        host="{{ my_droplet.droplet.ip_address }}"
+        port=22
+        state=started
+        delay=10
+        timeout=300
+
+  - name: install python for ansible
+    shell: ssh {{ my_droplet.droplet.ip_address }} 'apt-get install python -y'

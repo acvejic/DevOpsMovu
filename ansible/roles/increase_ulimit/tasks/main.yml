@@ -1,0 +1,25 @@
+---
+
+  - name: increase ulimit - edit files
+    lineinfile:
+        dest={{ item.dest }}
+        state=present
+        insertafter=EOF
+        line={{ item.line }}
+    with_items:
+      - {dest: /etc/systemd/system.conf, line: 'DefaultLimitNOFILE=65536'} 
+      - {dest: /etc/pam.d/common-session, line: 'session required pam_limits.so'} 
+      - {dest: /etc/pam.d/common-session-noninteractive, line: 'session required pam_limits.so'}             
+      - {dest: /etc/rc.local, line: 'sysctl -w net.core.somaxconn=65535'}                   
+      - {dest: /etc/sysctl.conf, line: 'vm.overcommit_memory = 1'}                         
+      - {dest: /etc/rc.local, line: 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'}                   
+
+  - name: add block of lines - /etc/security/limits.conf 
+    blockinfile:
+        insertafter: EOF
+        dest: "/etc/security/limits.conf"
+        block: |
+          * soft     nofile         64000   
+          * hard     nofile         64000
+          root soft     nofile         64000   
+          root hard     nofile         64000

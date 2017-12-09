@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  roles:
+  - prepare
+  - { role: newVM, VMname: 'MovuTest' }
