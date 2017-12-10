@@ -1,0 +1,58 @@
+---
+
+  - name: install packages
+    apt:
+      name={{ item }}
+      update_cache=yes
+    with_items:
+      - postgresql 
+      - postgresql-contrib 
+      - pgadmin3
+
+  - name: restart postgreSQL
+    service:
+      name=postgresql
+      state=restarted
+      enabled=yes
+
+#  - name: create user for DB
+#    shell: psql -c "CREATE USER -d ror_app WITH PASSWORD 'testpass';"
+
+  - name: Add key 
+    apt_key:
+      keyserver=hkp://keys.gnupg.net
+      id={{ item }}
+    with_items:
+    - 409B6B1796C275462A1703113804BB82D39DC0E3 
+    - 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+
+  - name: install packages
+    apt:
+      name={{ item }}
+    with_items:
+      - software-properties-common
+
+  - name: add APT repo
+    apt_repository:
+      repo: 'ppa:rael-gc/rvm'
+      state: present
+
+  - name: Update packages
+    apt:
+      update_cache=yes
+
+  - name: install packages
+    apt:
+      name={{ item }}
+    with_items:
+      - rvm
+
+#  - name: create sym link for rvm
+#    file:
+#      src=/usr/share/rvm/bin/rvm
+#      dest=/usr/bin/rvm
+#      state=link
+#      force=yes
+
+  - name: rvm install ruby 2.2.4 - this could take some time
+    shell: /usr/share/rvm/bin/rvm install 2.2.4

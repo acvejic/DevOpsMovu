@@ -1,4 +1,6 @@
 ---
 - hosts: MovuTest
   roles:
-  - increase_ulimit
+  - increaseUlimit
+  - additionalPackages
+  - postgreSQL
