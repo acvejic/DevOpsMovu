@@ -62,9 +62,17 @@ Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
 
 Task 2
   - Python script to get IP info and save to DB
+  
+  Password authentification is disabled, use ssh key, if you want to enable password authentification
+  edit /etc/ssh/sshd_config by adding "PasswordAuthentication yes" and after that restart sshd service.
+  
+  Dependencies:
+    - Pip (apt install python-pip)
+    - requests (pip install requests)
+    - psycopg2
+    - xmltodict
 
 TODO: 
-  - task 2
   - move some of the "ugly" shell module solutions to ansible modules
   - further investigation regarding runtime javasript -nodejs dependency
   - parametrize varibales: app name, password, user etc
