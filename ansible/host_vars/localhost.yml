@@ -1,5 +1,5 @@
-api_token: "73ae06ef7531134427f5663d56ec8723ae14ab28c26343ebf7b5bbbb4d09ac52"
-do_ssh_key: "ssh_key"
+api_token: "afa87a9da548f390d3302e5be39f14ede024239ae83682574b22e9e598ee7f7e"
+ssh_key: "movu-ssh_key"
 region_id: "ams2"
 memory: "2gb"
 private_networking: "yes"

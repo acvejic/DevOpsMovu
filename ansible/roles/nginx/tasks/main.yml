@@ -25,11 +25,7 @@
       repo: 'deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main'
       state: present
 
-  - name: Update packages
-    apt:
-      update_cache=yes
-
-  - name: install packages
+  - name: install nginx and passanger
     apt:
       name={{ item }}
       update_cache=yes
@@ -37,13 +33,13 @@
       - nginx-extras 
       - passenger
 
-  - name: enable passanager nginx module
+  - name: enable passanager nginx module -remove comment
     lineinfile:
       dest=/etc/nginx/nginx.conf
       regexp='^#\s*/etc/nginx/passenger.conf.*$'
       state=absent
 
-  - name: enable passanager nginx module
+  - name: enable passanager nginx module - add line
     lineinfile:
       dest=/etc/nginx/nginx.conf
       regexp='^include'
@@ -59,9 +55,12 @@
 
   - name: check installation
     shell: '/usr/bin/passenger-config validate-install --auto'  
-    
+    register: validate_installation
+
+  - debug: msg="{{ validate_installation.stdout }}"        
 
   - name: check memory status
     shell: '/usr/sbin/passenger-memory-stats'  
+    register: memory_status
 
-      
+  - debug: msg="{{ memory_status.stdout }}"              

@@ -1,0 +1,1 @@
+my_pub_key: "{{ lokkup('file','~/.ssh/id_rsa.pub') }}"
