@@ -4,6 +4,7 @@ import xmltodict
 import requests
 import sys
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 ip = sys.argv[1]
 db_user = 'ror_app'
@@ -13,6 +14,7 @@ db_table_name = 'geo_test_data'
 db_host = '127.0.0.1'
 
 con = psycopg2.connect(dbname='postgres', user=db_user, host=db_host, password=db_password)
+con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = con.cursor()
 query = "SELECT COUNT(*) = 0 FROM pg_catalog.pg_database WHERE datname = '" + db_name + "'"
 #cur.execute("SELECT COUNT(*) = 0 FROM pg_catalog.pg_database WHERE datname = 'geo_test'")
@@ -24,11 +26,11 @@ not_exists = not_exists_row[0]
 
 if not_exists:
     query = "CREATE DATABASE " + db_name	
-    cur.execute(query)
-    print ("Database " + db_namegeo + " has been created")
+    print ("Database " + db_name + " has been created")
 else:
     print ("Database "+ db_name + " exists")
 
+cur.execute(query)
 con = psycopg2.connect(dbname=db_name, user=db_user, host=db_host, password=db_password)
 cur = con.cursor()
 query = "CREATE TABLE IF NOT EXISTS " + db_table_name + " (IP cidr,CountryCode text,CountryName text,RegionCode text,RegionName text,City text,ZipCode integer,TimeZone text,Latitude decimal,Longitude decimal,MetroCode integer);"
