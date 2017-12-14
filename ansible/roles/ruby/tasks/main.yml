@@ -44,6 +44,11 @@
     args:
       chdir: /var/www/test_app
 
+  - name: prepare database.yml
+    template:
+      src: database.yml.j2
+      dest: /var/www/test_app/config/database.yml
+
   - name: chown www-data of app
     command: chown -R www-data:www-data /var/www
 
@@ -54,7 +59,7 @@
 
   - name: install node 
     shell: 'bash -lc "cd /tmp && \curl -sSL https://deb.nodesource.com/setup_6.x -o nodejs.sh && cat /tmp/nodejs.sh | sudo -E bash - && sudo apt-get install -y nodejs"'
-    
+
   - name: create DBs
     command: su - postgres -c "cd /var/www/test_app && rake db:create"
     
