@@ -38,7 +38,7 @@ Task 3.d
   - Initialize empty rails app
 
 Task 3.e
-  - Configure Nginx to server rails app
+  - Configure Nginx to point to rails app
  
 Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
 
