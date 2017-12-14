@@ -2,9 +2,10 @@
 Holycode - Movu project
 
 Test environment:
-  - Centos 7 or Ubuntu 16.04.3
-  - Ansible 2.3.2.0
-  - Python 2.7.5
+  - Ubuntu 16.04.3
+  - Ansible 2.4.2.0 (https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-16-04)
+  - Python 2.7.12
+  - Pip (apt-get install python-pip)
   - Dopy (pip install dopy)
 
 Prerequisites for integration with Digitalocean:
@@ -13,9 +14,10 @@ Prerequisites for integration with Digitalocean:
 - ssh-key of the host mashine to Digitalocean account (https://cloud.digitalocean.com/settings/security)
   - add name of the key to host_vars/localhost.yml - ssh_key variable
 
-
-Provision new VM on Digitalocean using playbook newVM.yml
+*****************************
+Create new VM on Digitalocean
  * ansible-playbook newVM.yml
+*****************************
 
 Task 1.
   - Assume that you're getting "Too many open files" errors in logs and write an Ansible playbook which will set this limit to higher value.
@@ -39,7 +41,7 @@ Task 3.e
   - Configure Nginx to server rails app
  
 Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
-
+*****************************
 To provision VM with all neccesary software run playbook provisionVM.yml
   - ansible-playbook provisionVM.yml
 
