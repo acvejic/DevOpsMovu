@@ -15,11 +15,10 @@ Prerequisites for integration with Digitalocean:
 
 
 Provision new VM on Digitalocean using playbook newVM.yml
- - ansible-playbook newVM.yml
+ * ansible-playbook newVM.yml
 
 Task 1.
-  - Assume that you're getting "Too many open files" errors in logs and write an Ansible
-playbook which will set this limit to higher value.
+  - Assume that you're getting "Too many open files" errors in logs and write an Ansible playbook which will set this limit to higher value.
   - Solution implemented in role "increaseUlimit"
 
 Task 3.a
