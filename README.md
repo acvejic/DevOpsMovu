@@ -31,8 +31,10 @@ Task 3.b
 
 Task 3.c
   - Install RVM and Ruby 2.2.4
+
 Task 3.d
   - Initialize empty rails app
+
 Task 3.e
   - Configure Nginx to server rails app
  
