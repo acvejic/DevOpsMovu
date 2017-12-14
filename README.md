@@ -45,3 +45,10 @@ To provision VM with all neccesary software run playbook provisionVM.yml
 
 Task 2
   - Python script to get IP info and save to DB
+
+TODO: 
+  - task 2
+  - move some of the "ugly" shell module solutions to ansible modules
+  - further investigation regarding runtime javasript -nodejs dependency
+  - parametrize varibales: app name, password, user etc
+  - store sensitive data (passwords, sshkeys, API tokens etc.) in Vault
