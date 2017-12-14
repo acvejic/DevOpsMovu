@@ -56,7 +56,7 @@ Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
 
     To provision VM with all neccesary software run playbook provisionVM.yml
   
-                - ansible-playbook provisionVM.yml
+                  ansible-playbook provisionVM.yml
 
 ************************************************************************
 
