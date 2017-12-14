@@ -11,8 +11,8 @@ Test environment:
 Prerequisites for integration with Digitalocean:
 - API token from Digitalocean (https://cloud.digitalocean.com/settings/api/tokens)
   - saved in host_vars/localhost.yml - api_token variable
-- ssh-key of the host mashine to Digitalocean account (https://cloud.digitalocean.com/settings/security)
-  - add name of the key to host_vars/localhost.yml - ssh_key variable
+- ssh-key generated - will be added to Digitalocean account
+ 
 
 *****************************
 Create new VM on Digitalocean
