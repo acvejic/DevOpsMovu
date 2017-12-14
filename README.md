@@ -63,14 +63,27 @@ Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
 Task 2
   - Python script to get IP info and save to DB
   
-  Password authentification is disabled, use ssh key, if you want to enable password authentification
-  edit /etc/ssh/sshd_config by adding "PasswordAuthentication yes" and after that restart sshd service.
-  
+  For convience VM created in task 2 is used.
+  SSH password authentification is disabled, use same ssh key, if you want to enable password authentification
+  edit /etc/ssh/sshd_config by adding "PasswordAuthentication yes" and restart sshd service.
+  Also for faster development following are used:
+      db_user = 'ror_app'
+      db_password = 'testpass'
+      db_name = 'geo_test'
+      db_table_name = 'geo_test_data'
+  That parametars are configurable in script
+
   Dependencies:
-    - Pip (apt install python-pip)
-    - requests (pip install requests)
-    - psycopg2
-    - xmltodict
+   - Pip (apt install python-pip)
+   - requests (pip install requests)
+   - psycopg2
+   - xmltodict
+  
+  To run script:
+      cd script
+      ./geoip.py 8.8.8.8
+          
+
 
 TODO: 
   - move some of the "ugly" shell module solutions to ansible modules
