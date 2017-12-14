@@ -41,9 +41,11 @@ Task 3.e
   - Configure Nginx to server rails app
  
 Solution for tasks 3.c, 3.d and 3.e implemented in role "ruby"
-*****************************
+
+************************************************************************
 To provision VM with all neccesary software run playbook provisionVM.yml
   - ansible-playbook provisionVM.yml
+************************************************************************
 
 Task 2
   - Python script to get IP info and save to DB
