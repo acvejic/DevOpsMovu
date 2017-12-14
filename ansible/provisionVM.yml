@@ -1,4 +1,11 @@
 ---
 - hosts: MovuTest
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python
+      tags:
+            - always
+
   roles:
-  - increase_ulimit
+  - {role: 'increaseUlimit', tags: 'increaseUlimit'}  
