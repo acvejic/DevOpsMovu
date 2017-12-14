@@ -9,7 +9,7 @@
     digital_ocean:
       state=present
       command=ssh
-      name={{ do_ssh_key }}
+      name={{ ssh_key }}
       ssh_pub_key={{ lookup('file', '~/.ssh/id_rsa.pub') }}
       api_token={{ api_token }}
     register: ssh_key

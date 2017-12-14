@@ -1,0 +1,66 @@
+---
+
+  - name: install packages
+    apt:
+      name={{ item }}
+      update_cache=yes
+    with_items:
+      - dirmngr 
+      - gnupg
+
+  - name: Add an apt key 
+    apt_key:
+      keyserver=hkp://keyserver.ubuntu.com:80
+      id=561F9B9CAC40B2F7
+
+  - name: install packages
+    apt:
+      name={{ item }}
+    with_items:
+      - apt-transport-https 
+      - ca-certificates
+
+  - name: add APT repo
+    apt_repository:
+      repo: 'deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main'
+      state: present
+
+  - name: install nginx and passanger
+    apt:
+      name={{ item }}
+      update_cache=yes
+    with_items:
+      - nginx-extras 
+      - passenger
+
+  - name: enable passanager nginx module -remove comment
+    lineinfile:
+      dest=/etc/nginx/nginx.conf
+      regexp='^#\s*/etc/nginx/passenger.conf.*$'
+      state=absent
+
+  - name: enable passanager nginx module - add line
+    lineinfile:
+      dest=/etc/nginx/nginx.conf
+      regexp='^include'
+      state=present
+      insertafter='^http {'
+      line='include /etc/nginx/passenger.conf;'      
+
+  - name: restart nginx
+    service:
+      name=nginx
+      state=restarted
+      enabled=yes
+
+  - name: check installation
+    shell: '/usr/bin/passenger-config validate-install --auto'  
+    register: validate_installation
+
+  - debug: msg="{{ validate_installation.stdout }}"        
+
+  - name: check memory status
+    shell: '/usr/sbin/passenger-memory-stats'  
+    register: memory_status
+
+  - debug: msg="{{ memory_status.stdout }}"              
