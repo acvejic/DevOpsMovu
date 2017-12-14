@@ -1,6 +1,14 @@
 ---
 - hosts: MovuTest
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python
+      tags:
+            - always
+
   roles:
-  - increaseUlimit
-  - additionalPackages
-  - postgreSQL
+  - {role: 'increaseUlimit', tags: 'increaseUlimit'}  
+  - {role: 'nginx', tags: 'nginx'}  
+  - {role: 'postgresql', tags: 'postgresql'}  
+  - {role: 'ruby', tags: 'ruby'}  

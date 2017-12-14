@@ -1,0 +1,32 @@
+server {
+  listen 80;
+  server_name default _;
+  passenger_ruby /usr/share/rvm/gems/ruby-2.2.4/wrappers/ruby;
+  passenger_enabled on; 
+  
+  location / {
+    root /var/www/test_app/public;
+    passenger_enabled on;
+	rails_env development;
+  }
+
+  location ~ \.(js|css|png|jpg|jpeg|gif|ico|html)$ {
+    root /var/www/test_app/public;
+    expires max;
+    gzip_static on;
+    add_header Cache-Control public;
+    break;
+  }
+
+  location ^~ /assets/ {
+    root /var/www/test_app/public;
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
+
+  # Drop requests to non-rails requests
+  location ~ \.(aspx|php|jsp|cgi|asp) {
+    return 410;
+   }
+}

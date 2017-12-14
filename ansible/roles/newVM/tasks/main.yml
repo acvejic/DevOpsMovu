@@ -39,6 +39,3 @@
         state=started
         delay=10
         timeout=300
-
-  - name: install python for ansible
-    shell: ssh {{ my_droplet.droplet.ip_address }} 'apt-get install python -y'
